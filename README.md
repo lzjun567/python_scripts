@@ -6,7 +6,7 @@ requests、beautifulsoup 是爬虫两大神器，reuqests 用于网络请求，b
 
 ```python
 pip install requests
-pip install beautifulsoup
+pip install beautifulsoup4
 pip install pdfkit
 ```
 
@@ -26,10 +26,18 @@ python crawler.py
 ### 效果图
 ![image](./crawer-pdf.png)
 
->作者：liuzhijun
+### 常见问题
 
->微信号： lzjun567
+1. SyntaxError: Missing parentheses in call to 'print'
+    
+    beautifulsoup3不支持python2,所以下载beautifulsoup是要指定 beautifusoup4
+2. 如果是使用PyCharm开发, 那么运行的时候要在shell/cmd 窗口执行脚本, 直接在Pycharm中运行会找不到 wkhtmltopdf命令
 
+
+### contact me
+
+>作者：liuzhijun  
+>微信号： lzjun567  
 >公众号：一个程序员的微站（VTtalk）
 
 

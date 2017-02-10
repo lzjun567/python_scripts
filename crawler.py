@@ -2,7 +2,7 @@
 import os
 import re
 import time
-
+import logging
 import pdfkit
 import requests
 from bs4 import BeautifulSoup
@@ -30,7 +30,7 @@ def parse_url_to_html(url, name):
     """
     try:
         response = requests.get(url)
-        soup = BeautifulSoup(response.content, "html5lib")
+        soup = BeautifulSoup(response.content, 'html.parser')
         # 正文
         body = soup.find_all(class_="x-wiki-content")[0]
         # 标题
@@ -47,17 +47,22 @@ def parse_url_to_html(url, name):
         pattern = "(<img .*?src=\")(.*?)(\")"
 
         def func(m):
-            rtn = m.group(1) + "http://www.liaoxuefeng.com" + m.group(2) + m.group(3)
-            return rtn
+            if not m.group(3).startswith("http"):
+                rtn = m.group(1) + "http://www.liaoxuefeng.com" + m.group(2) + m.group(3)
+                return rtn
+            else:
+                return m.group(1)+m.group(2)+m.group(3)
 
         html = re.compile(pattern).sub(func, html)
         html = html_template.format(content=html)
+        html = html.encode("utf-8")
         with open(name, 'wb') as f:
             f.write(html)
         return name
 
     except Exception as e:
-        print(e.message)
+
+        logging.error("解析错误", exc_info=True)
 
 
 def get_url_list():
@@ -66,7 +71,7 @@ def get_url_list():
     :return:
     """
     response = requests.get("http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000")
-    soup = BeautifulSoup(response.content, "html5lib")
+    soup = BeautifulSoup(response.content, "html.parser")
     menu_tag = soup.find_all(class_="uk-nav uk-nav-side")[1]
     urls = []
     for li in menu_tag.find_all("li"):
