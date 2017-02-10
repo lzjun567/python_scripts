@@ -52,7 +52,6 @@ def parse_url_to_html(url, name):
                 return rtn
             else:
                 return m.group(1)+m.group(2)+m.group(3)
-
         html = re.compile(pattern).sub(func, html)
         html = html_template.format(content=html)
         html = html.encode("utf-8")
