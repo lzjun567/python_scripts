@@ -17,4 +17,10 @@ pip install scipy-0.18.0-cp27-cp27m-win_amd64.whl
 pip install numpy-1.11.3+mkl-cp27-cp27m-win_amd64.whl
 pip install matplotlib-1.5.3-cp27-cp27m-win_amd64.whl
 ```
-其他平台可根据错误提示 Google 解决。
+其他平台可根据错误提示 Google 解决。也可以通过 [issue](https://github.com/lzjun567/crawler_html2pdf/issues) 在 GitHub 提交问题。
+
+### Contact me
+
+>作者：liuzhijun
+>微信： lzjun567
+>公众号：一个程序员的微站（id：VTtalk）

@@ -38,10 +38,10 @@ python crawler.py
 2. 如果是使用PyCharm开发, 那么运行的时候要在shell/cmd 窗口执行脚本, 直接在Pycharm中运行会找不到 wkhtmltopdf命令
 
 
-### contact me
+### Contact me
 
 >作者：liuzhijun  
->微信号： lzjun567  
->公众号：一个程序员的微站（VTtalk）
+>微信： lzjun567
+>公众号：一个程序员的微站（id：VTtalk）
 
 
