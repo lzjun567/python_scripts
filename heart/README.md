@@ -1,3 +1,9 @@
+# 基于微博数据用 Python 打造一颗“心”
+
+### 文章链接
+
+[基于微博数据用 Python 打造一颗“心”](http://mp.weixin.qq.com/s?__biz=MjM5MzgyODQxMQ==&mid=2650366775&idx=1&sn=3fbf6f64304e528ddad88c0f6eb922e1&chksm=be9cd86389eb5175882c5666ac5ee7fe936a7b32b705244a87ce34eadfdf33f5a11236be4445&mpshare=1&scene=23&srcid=0215AAinxzHfYCxNvblNQuTf#rd)
+
 ### 准备工作
 大体思路就是把微博数据爬下来，数据经过清洗加工后再分词处理，处理后的数据交给词云工具，配合科学计算工具和绘图工具制作成图像出来，涉及到的工具包有：
 
@@ -19,8 +25,12 @@ pip install matplotlib-1.5.3-cp27-cp27m-win_amd64.whl
 ```
 其他平台可根据错误提示 Google 解决。也可以通过 [issue](https://github.com/lzjun567/crawler_html2pdf/issues) 在 GitHub 提交问题。
 
+### 效果图
+
+![iamge](./heart.jpg)
+
 ### Contact me
 
->作者：liuzhijun
->微信： lzjun567
->公众号：一个程序员的微站（id：VTtalk）
+>作者：liuzhijun  
+>微信： lzjun567  
+>公众号：一个程序员的微站（id：VTtalk）  
