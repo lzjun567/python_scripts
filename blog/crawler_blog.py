@@ -9,8 +9,8 @@ if __name__ == '__main__':
     }
 
     data = {"action": "user_login",
-            "user_login": "liuzhijun",
-            "user_pass": "lzjun854977",
+            "user_login": "youname",
+            "user_pass": "youpassword",
             "remember_me": "1",}
     # redirect_url	http://www.jobbole.com}
     url = "http://python.jobbole.com/wp-admin/admin-ajax.php"
