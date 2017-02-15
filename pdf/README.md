@@ -41,7 +41,7 @@ python crawler.py
 ### Contact me
 
 >作者：liuzhijun  
->微信： lzjun567
+>微信： lzjun567  
 >公众号：一个程序员的微站（id：VTtalk）
 
 
