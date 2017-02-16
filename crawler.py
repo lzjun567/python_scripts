@@ -47,14 +47,14 @@ def parse_url_to_html(url, name):
         pattern = "(<img .*?src=\")(.*?)(\")"
 
         def func(m):
-            if not m.group(3).startswith("http"):
+            if not m.group(2).startswith("http"):#这个group里的是2吧
                 rtn = m.group(1) + "http://www.liaoxuefeng.com" + m.group(2) + m.group(3)
                 return rtn
             else:
                 return m.group(1)+m.group(2)+m.group(3)
         html = re.compile(pattern).sub(func, html)
         html = html_template.format(content=html)
-        html = html.encode("utf-8")
+        # html = html.encode("utf-8")#用的是Python2.7，把这个注释掉才能运行
         with open(name, 'wb') as f:
             f.write(html)
         return name
@@ -110,6 +110,11 @@ def main():
     urls = get_url_list()
     file_name = u"liaoxuefeng_Python3_tutorial.pdf"
     htmls = [parse_url_to_html(url, str(index) + ".html") for index, url in enumerate(urls)]
+    # htmls=[]
+    # for index,url in enumerate(urls):
+    #     htmls.append(parse_url_to_html(url,str(index)))
+    #     if index==10:
+    #         break
     save_pdf(htmls, file_name)
 
     for html in htmls:
