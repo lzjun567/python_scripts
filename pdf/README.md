@@ -37,6 +37,8 @@ python crawler.py
     beautifulsoup3不支持python2,所以下载beautifulsoup是要指定 beautifusoup4
 2. 如果是使用PyCharm开发, 那么运行的时候要在shell/cmd 窗口执行脚本, 直接在Pycharm中运行会找不到 wkhtmltopdf命令
 
+3. 生成的PDF文件可以在公众号回复『pdf』下载
+
 
 ### Contact me
 
