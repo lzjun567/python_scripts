@@ -39,6 +39,10 @@ python crawler.py
 
 3. 生成的PDF文件可以在公众号回复『pdf』下载
 
+### 更新记录
+
+* 2017-2-21: 对代码进行了全面的重构,可扩展, 子类爬虫只需实现 `parse_menu`和`parse_body`方法就可以实现HTML转换PDF的逻辑
+
 
 ### Contact me
 
