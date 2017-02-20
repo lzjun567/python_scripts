@@ -1,8 +1,9 @@
 # coding=utf-8
+import logging
 import os
 import re
 import time
-import logging
+
 import pdfkit
 import requests
 from bs4 import BeautifulSoup
@@ -19,6 +20,22 @@ html_template = """
 </html>
 
 """
+
+
+class Crawler(object):
+    """
+    爬虫基类，所有爬虫都应该继承此类
+    """
+    name = None
+
+    def __init__(self, name=None, **kwargs):
+        if name is not None:
+            self.name = name
+        elif not getattr(self, 'name', None):
+            raise ValueError("%s must have a name" % type(self).__name__)
+
+    def parse(self):
+        raise NotImplementedError
 
 
 def parse_url_to_html(url, name):
@@ -51,7 +68,8 @@ def parse_url_to_html(url, name):
                 rtn = m.group(1) + "http://www.liaoxuefeng.com" + m.group(2) + m.group(3)
                 return rtn
             else:
-                return m.group(1)+m.group(2)+m.group(3)
+                return m.group(1) + m.group(2) + m.group(3)
+
         html = re.compile(pattern).sub(func, html)
         html = html_template.format(content=html)
         html = html.encode("utf-8")
@@ -120,4 +138,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    Crawler().parse()
