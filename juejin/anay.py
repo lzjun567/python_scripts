@@ -1,14 +1,11 @@
 import pandas as pd
 
-# 加载数据
-tag_df = pd.read_csv('D:/my/crawler_html2pdf/juejin/tag.csv')
+tags_df = pd.read_csv('D:/my/crawler_html2pdf/juejin/tag.csv')
 
-# 排序
-sorted_tags = tag_df.sort_values(by=['viewsCount'], ascending=False)
-languages = ['Android', 'iOS', 'Java', 'Python', 'Ruby', 'Swift', 'Go', 'Dart', 'Objective-C', 'C', 'C++', 'C#', 'PHP',
-             'JavaScript', 'Perl', 'VB', 'R', 'MATLAB', 'Groovy', "Scala"]
+languages = ['Java', 'Python', 'Ruby', 'Swift', 'Go', 'Dart', 'Objective-C', 'C', 'C++', 'C#', 'PHP', 'JavaScript',
+             'Perl', 'VB', 'R', 'MATLAB', 'Groovy', "Scala"]
 
-lang_tags = sorted_tags[sorted_tags["title"].isin(languages)]
+lang_tags_df = tags_df[tags_df["title"].isin(languages)]
 
 lang_tags = lang_tags[['title', 'viewsCount']]
 lang_tags.drop(177, axis=0, inplace=True)
