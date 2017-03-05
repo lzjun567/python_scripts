@@ -24,6 +24,26 @@ def main():
                              "viewsCount": tag.get("viewsCount")})
 
 
-if __name__ == '__main__':
-    main()
+from pymongo import MongoClient
 
+client = MongoClient('mongodb://localhost:27017/')
+db = client['juejin']
+
+
+def read_entity():
+
+    import csv
+
+    with open('entity.csv', 'w') as csvfile:
+        fieldnames = ['title', 'viewsCount', 'commentsCount']  # sub:关注
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for item in db['posts'].find():
+            print(item)
+            writer.writerow({'title': item.get("title"),
+                             'viewsCount': item.get("viewsCount"),
+                             "commentsCount": item.get("commentsCount")})
+
+
+if __name__ == '__main__':
+    read_entity()
