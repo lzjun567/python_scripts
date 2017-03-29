@@ -1,44 +1,68 @@
 # encoding: utf-8
 # !/usr/bin/env python
+"""
+
+作者：liuzhijun
+微信： lzjun567
+公众号：Python之禅（id：VTtalk）
+"""
+import time
+from http import cookiejar
 
 import requests
-
 from bs4 import BeautifulSoup
 
-headers = headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate",
+headers = {
     "Host": "www.zhihu.com",
-    "Upgrade-Insecure-Requests": "1",
+    "Referer": "https://www.zhihu.com/",
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87'
 }
-response = requests.get("https://www.zhihu.com", headers=headers)
-soup = BeautifulSoup(response.content, "html.parser")
-xsrf = soup.find('input', attrs={"name": "_xsrf"}).get("value")
-print(xsrf)
-# print(response.content)
 
-data = {
-    "_xsrf": xsrf,
-    "password": "xxx",
-    "captcha": "pvRJ",
-    "email": "xxxxxx",
-}
-# _xsrf=ef85127d992f6ea39d9817bbb7a315d4&password=lzjun854979&captcha=ENTV&email=lzjun567%40qq.com
-with open("text.gif", "wb") as f:
-    f.write(requests.get("https://www.zhihu.com/captcha.gif?r=1490697036809&type=login", headers=headers).content)
+# 使用登录cookie信息
+session = requests.session()
+session.cookies = cookiejar.LWPCookieJar(filename='cookies')
+try:
+    session.cookies.load(ignore_discard=True)
+except:
+    print("还没有cookie信息")
 
-captcha = input()
 
-data['captcha'] = captcha
+def get_xsrf():
+    response = session.get("https://www.zhihu.com", headers=headers)
+    soup = BeautifulSoup(response.content, "html.parser")
+    xsrf = soup.find('input', attrs={"name": "_xsrf"}).get("value")
+    return xsrf
 
-print(data)
-import json
-response = requests.post("https://www.zhihu.com/login/email", headers=headers, data=json.dumps(data))
-print(response.content)
-print(response.json().get("data").get("captcha"))
-print(response.json().get("data").get("account"))
-import re
 
-s = "sdfdf 12:22:23 dsfsdf 23:23:12"
-print(re.compile(r"(\d{2}:\d{2}:\d{2})").findall(s))
+def get_captcha():
+    """
+    把验证码图片保存到当前目录，手动识别验证码
+    :return:
+    """
+    t = str(int(time.time() * 1000))
+    captcha_url = 'https://www.zhihu.com/captcha.gif?r=' + t + "&type=login"
+    r = session.get(captcha_url, headers=headers)
+    with open('captcha.jpg', 'wb') as f:
+        f.write(r.content)
+    captcha = input("验证码：")
+    return captcha
+
+
+def login(email, password):
+    login_url = 'https://www.zhihu.com/login/email'
+    data = {
+        'email': email,
+        'password': password,
+        '_xsrf': get_xsrf(),
+        "captcha": get_captcha(),
+        'remember_me': 'true'}
+    response = session.post(login_url, data=data, headers=headers)
+    login_code = response.json()
+    print(login_code['msg'])
+    session.cookies.save()
+
+
+if __name__ == '__main__':
+    email = input('email：')
+    password = input("password:")
+    login(email, password)

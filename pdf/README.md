@@ -48,6 +48,6 @@ python crawler.py
 
 >作者：liuzhijun  
 >微信： lzjun567  
->公众号：一个程序员的微站（id：VTtalk）
+>公众号：Python之禅（id：VTtalk）
 
 
