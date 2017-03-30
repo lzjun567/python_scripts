@@ -20,9 +20,11 @@ headers = {
 
 # 使用登录cookie信息
 session = requests.session()
-session.cookies = cookiejar.LWPCookieJar(filename='cookies')
+session.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
 try:
+    print(session.cookies)
     session.cookies.load(ignore_discard=True)
+
 except:
     print("还没有cookie信息")
 
@@ -59,10 +61,12 @@ def login(email, password):
     response = session.post(login_url, data=data, headers=headers)
     login_code = response.json()
     print(login_code['msg'])
+    for i in session.cookies:
+        print(i)
     session.cookies.save()
 
 
 if __name__ == '__main__':
-    email = input('email：')
-    password = input("password:")
+    email = "xxxx"
+    password = "xxxxx"
     login(email, password)
