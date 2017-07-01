@@ -38,7 +38,7 @@ class Crawler(object):
     def __init__(self, name, start_url):
         """
         初始化
-        :param name: 保存问的PDF文件名,不需要后缀名
+        :param name: 保存为的PDF文件名,不需要后缀名
         :param start_url: 爬虫入口URL
         """
         self.name = name
