@@ -73,15 +73,16 @@ def parse_url_to_html(url, name):
         h = str(body)
         html = h[1:-1]
         # body中的img标签的src相对路径的改成绝对路径
-        # pattern = "(<img .*?src=\")(.*?)(\")"
+
         #
         # def func(m):
-        #     if not m.group(3).startswith("http"):
+        #     if not m.group(2).startswith("http"):
         #         rtn = m.group(1) + domain + m.group(2) + m.group(3)
         #         return rtn
         #     else:
-        #         return m.group(1) + m.group(2) + m.group(3)
+        #         return m.group(0)
         #
+        # pattern = "(<img .*?src=\")(.*?)(\")"
         # html = re.compile(pattern).sub(func, html)
         html = html_template.format(content=html)
         html = html.encode("utf-8")
