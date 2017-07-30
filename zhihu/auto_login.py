@@ -20,15 +20,15 @@ headers = {
 
 # 使用登录cookie信息
 session = requests.session()
-session.cookies = cookiejar.LWPCookieJar(filename='cookies')
-try:
-    session.cookies.load(ignore_discard=True)
-except:
-    print("还没有cookie信息")
+# session.cookies = cookiejar.LWPCookieJar(filename='cookies')
+# try:
+#     session.cookies.load(ignore_discard=True)
+# except:
+#     print("还没有cookie信息")
 
 
 def get_xsrf():
-    response = session.get("https://www.zhihu.com", headers=headers)
+    response = session.get("https://www.zhihu.com", headers=headers, verify=False)
     soup = BeautifulSoup(response.content, "html.parser")
     xsrf = soup.find('input', attrs={"name": "_xsrf"}).get("value")
     return xsrf
@@ -41,6 +41,7 @@ def get_captcha():
     """
     t = str(int(time.time() * 1000))
     captcha_url = 'https://www.zhihu.com/captcha.gif?r=' + t + "&type=login"
+    print(captcha_url)
     r = session.get(captcha_url, headers=headers)
     with open('captcha.jpg', 'wb') as f:
         f.write(r.content)
@@ -56,13 +57,19 @@ def login(email, password):
         '_xsrf': get_xsrf(),
         "captcha": get_captcha(),
         'remember_me': 'true'}
+    print(session.cookies)
     response = session.post(login_url, data=data, headers=headers)
     login_code = response.json()
     print(login_code['msg'])
-    session.cookies.save()
+    print(session.cookies)
+    r = session.get("https://www.zhihu.com/settings/profile", headers=headers)
+    print(r.status_code)
+    print(r.text)
+    with open("xx.html", "wb") as f:
+        f.write(r.content)
 
 
 if __name__ == '__main__':
-    email = input('email：')
-    password = input("password:")
+    email = "lzjun567@qq.com"
+    password = "lzjun854979"
     login(email, password)

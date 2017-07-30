@@ -38,27 +38,25 @@ class Crawler(object):
     def __init__(self, name, start_url):
         """
         初始化
-        :param name: 保存问的PDF文件名,不需要后缀名
+        :param name: 将要被保存为PDF的文件名称
         :param start_url: 爬虫入口URL
         """
         self.name = name
         self.start_url = start_url
         self.domain = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self.start_url))
 
-    def crawl(self, url):
+    @staticmethod
+    def request(url, **kwargs):
         """
-        pass
+        网络请求,返回response对象
         :return:
         """
-        print(url)
-        response = requests.get(url)
+        response = requests.get(url, **kwargs)
         return response
 
     def parse_menu(self, response):
         """
-        解析目录结构,获取所有URL目录列表:由子类实现
-        :param response 爬虫返回的response对象
-        :return: url 可迭代对象(iterable) 列表,生成器,元组都可以
+        从response中解析出所有目录的URL链接
         """
         raise NotImplementedError
 
@@ -66,7 +64,7 @@ class Crawler(object):
         """
         解析正文,由子类实现
         :param response: 爬虫返回的response对象
-        :return: 返回经过处理的html文本
+        :return: 返回经过处理的html正文文本
         """
         raise NotImplementedError
 
@@ -89,8 +87,8 @@ class Crawler(object):
             'outline-depth': 10,
         }
         htmls = []
-        for index, url in enumerate(self.parse_menu(self.crawl(self.start_url))):
-            html = self.parse_body(self.crawl(url))
+        for index, url in enumerate(self.parse_menu(self.request(self.start_url))):
+            html = self.parse_body(self.request(url))
             f_name = ".".join([str(index), "html"])
             with open(f_name, 'wb') as f:
                 f.write(html)
