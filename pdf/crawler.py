@@ -143,7 +143,7 @@ class LiaoxuefengPythonCrawler(Crawler):
             pattern = "(<img .*?src=\")(.*?)(\")"
 
             def func(m):
-                if not m.group(3).startswith("http"):
+                if not m.group(2).startswith("http"):
                     rtn = "".join([m.group(1), self.domain, m.group(2), m.group(3)])
                     return rtn
                 else:

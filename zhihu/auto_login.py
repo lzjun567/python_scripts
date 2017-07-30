@@ -20,11 +20,13 @@ headers = {
 
 # 使用登录cookie信息
 session = requests.session()
-# session.cookies = cookiejar.LWPCookieJar(filename='cookies')
-# try:
-#     session.cookies.load(ignore_discard=True)
-# except:
-#     print("还没有cookie信息")
+session.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
+try:
+    print(session.cookies)
+    session.cookies.load(ignore_discard=True)
+
+except:
+    print("还没有cookie信息")
 
 
 def get_xsrf():
@@ -70,6 +72,8 @@ def login(email, password):
 
 
 if __name__ == '__main__':
-    email = "lzjun567@qq.com"
-    password = "lzjun854979"
+
+if __name__ == '__main__':
+    email = "xxxx"
+    password = "xxxxx"
     login(email, password)
