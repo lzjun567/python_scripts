@@ -5,7 +5,9 @@ __author__ = 'liuzhijun'
 
 if __name__ == '__main__':
     cookies = {
-        "wordpress_logged_in_0efdf49af511fd88681529ef8c2e5fbf": "liuzhijun%7C1489451730%7Ch1qqRwDqQsBrt3MdwKXXen1IMV1m31tHXITLutHszlT%7C7c5e634d83279f3cf8d37ec7db76a80d775198593d55a165cf579c9f17308c28"
+        "wordpress_logged_in_0efdf49af511fd88681529ef8c2e5fbf": "liuzhijun%7C1489451730%7Ch1qqRwDqQsBrt3MdwKXXen1IMV"
+                                                                "1m31tHXITLutHszlT%7C7c5e634d83279f3cf8d37ec7db76a80d"
+                                                                "775198593d55a165cf579c9f17308c28"
     }
 
     data = {"action": "user_login",

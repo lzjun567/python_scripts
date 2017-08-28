@@ -18,6 +18,9 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87'
 }
 
+
+
+
 # 使用登录cookie信息
 session = requests.session()
 session.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
@@ -70,3 +73,4 @@ if __name__ == '__main__':
     email = "xxxx"
     password = "xxxxx"
     login(email, password)
+    json_str = ""
