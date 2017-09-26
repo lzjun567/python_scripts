@@ -67,6 +67,7 @@ def login(email, password):
     login_code = response.json()
     print(login_code['msg'])
     print(session.cookies)
+    session.cookies.save()
     r = session.get("https://www.zhihu.com/settings/profile", headers=headers)
     print(r.status_code)
     print(r.text)
