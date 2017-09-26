@@ -76,8 +76,6 @@ def login(email, password):
 
 
 if __name__ == '__main__':
-
-if __name__ == '__main__':
     email = "xxxx"
     password = "xxxxx"
     login(email, password)
