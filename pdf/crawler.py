@@ -3,13 +3,12 @@ from __future__ import unicode_literals
 
 import logging
 import os
+import random
 import re
 import time
+from urllib import request
 
-try:
-    from urllib.parse import urlparse  # py3
-except:
-    from urlparse import urlparse  # py2
+from urllib.parse import urlparse
 
 import pdfkit
 import requests
@@ -25,7 +24,6 @@ html_template = """
 {content}
 </body>
 </html>
-
 """
 
 
@@ -51,7 +49,26 @@ class Crawler(object):
         网络请求,返回response对象
         :return:
         """
-        response = requests.get(url, **kwargs)
+        fp = open('proxies.txt', 'r')
+        ips = fp.readlines()
+        proxys = list()
+        for p in ips:
+            ip = p.strip('\n').split('\t')
+            pro = dict()
+            pro['https'] = ip[0] + ':' + ip[1]
+            proxys.append(pro)
+
+        headers = {
+            'user-agent': 'Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19'}
+        while (1):
+            try:
+                response = requests.get(url, headers=headers, proxies=random.choice(proxys), timeout=2)
+                if (response.status_code != 200): continue
+                break
+            except Exception as e:
+                print(e)
+
+        print("response:", response)
         return response
 
     def parse_menu(self, response):
@@ -70,6 +87,7 @@ class Crawler(object):
 
     def run(self):
         start = time.time()
+
         options = {
             'page-size': 'Letter',
             'margin-top': '0.75in',
@@ -93,7 +111,6 @@ class Crawler(object):
             with open(f_name, 'wb') as f:
                 f.write(html)
             htmls.append(f_name)
-
         pdfkit.from_file(htmls, self.name + ".pdf", options=options)
         for html in htmls:
             os.remove(html)
@@ -112,10 +129,12 @@ class LiaoxuefengPythonCrawler(Crawler):
         :param response 爬虫返回的response对象
         :return: url生成器
         """
-        soup = BeautifulSoup(response.content, "html.parser")
-        menu_tag = soup.find_all(class_="uk-nav uk-nav-side")[1]
-        for li in menu_tag.find_all("li"):
-            url = li.a.get("href")
+        soup = BeautifulSoup(response.text, "html.parser")
+        menu_tag = soup.find_all('ul', class_="uk-nav uk-nav-side")[1]
+        # print(menu_tag.find_all('a')[0].get("href"))
+        for li in menu_tag.find_all("a"):
+            url = li.get("href")
+            # print(li)
             if not url.startswith("http"):
                 url = "".join([self.domain, url])  # 补全为全路径
             yield url
@@ -127,9 +146,10 @@ class LiaoxuefengPythonCrawler(Crawler):
         :return: 返回处理后的html文本
         """
         try:
-            soup = BeautifulSoup(response.content, 'html.parser')
-            body = soup.find_all(class_="x-wiki-content")[0]
+            soup = BeautifulSoup(response.text, 'html.parser')
+            body = soup.find_all(class_="x-wiki-content x-main-content")[0]
 
+            print("body:", body)
             # 加入标题, 居中显示
             title = soup.find('h4').get_text()
             center_tag = soup.new_tag("center")
@@ -158,6 +178,6 @@ class LiaoxuefengPythonCrawler(Crawler):
 
 
 if __name__ == '__main__':
-    start_url = "http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000"
+    start_url = "https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000"
     crawler = LiaoxuefengPythonCrawler("廖雪峰Git", start_url)
     crawler.run()

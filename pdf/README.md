@@ -24,6 +24,8 @@ $ sudo yum intsall wkhtmltopdf      # centos
 
 ### 运行
 ```python
+python get_proxy.py
+python censor.py
 python crawler.py
 ```
 
@@ -42,7 +44,7 @@ python crawler.py
 ### 更新记录
 
 * 2017-2-21: 对代码进行了全面的重构,可扩展, 子类爬虫只需实现 `parse_menu`和`parse_body`方法就可以实现HTML转换PDF的逻辑
-
+* 2017-11-14: 添加代理池，修复503错误
 
 ### Contact me
 
