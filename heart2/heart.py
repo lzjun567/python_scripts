@@ -47,7 +47,7 @@ def fetch_data(uid=None, container_id=None):
         params['page'] = str(page)
         params['containerid'] = container_id
         res = requests.get(url, params=params, headers=headers)
-        cards = res.json().get("cards")
+        cards = res.json().get("data").get("cards")
 
         for card in cards:
             # 每条微博的正文内容
@@ -63,7 +63,8 @@ def fetch_data(uid=None, container_id=None):
 
 def grey_color_func(word, font_size, position, orientation, random_state=None,
                     **kwargs):
-    s = "hsl(0, 0%%, %d%%)" % 0
+    s = "hsl(255, 0%%, %d%%)" % 0
+    print(s)
     return s
 
 
@@ -84,10 +85,33 @@ def generate_image():
         plt.title(u"天下有情人终成眷属")
         plt.imshow(wordcloud.recolor(color_func=grey_color_func, random_state=3),
                    interpolation="bilinear")
+        # mask_img = imread('./logo.jpg', flatten=True)
+        #
+        # wordcloud = WordCloud(font_path='/Library/Fonts/Songti.ttc',
+        #                       background_color="white",
+        #                       max_words=80,
+        #                       mask=mask_img
+        #                       ).generate(data)
+        # plt.figure(figsize=(9, 6))
+        # plt.imshow(wordcloud.recolor(color_func=grey_color_func, random_state=3), interpolation="bilinear")
+
+        plt.imshow(wordcloud, interpolation="bilinear")
+        # plt.axis("off")
+        # plt.show()
+
+
+
+        # wordcloud = WordCloud(
+        #     font_path='/Library/Fonts/Songti.ttc',
+        #     background_color='white',
+        #     mask=mask_img
+        # ).generate(data)
+        # plt.imshow(wordcloud.recolor(color_func=grey_color_func, random_state=3),
+        #            interpolation="bilinear")
         plt.axis('off')
         plt.savefig('./heart3.jpg', dpi=1600)
 
 
 if __name__ == '__main__':
-    fetch_data("1192515960", "1076031192515960")
+    # fetch_data("1192515960", "1076031192515960")
     generate_image()
