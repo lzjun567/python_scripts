@@ -81,10 +81,11 @@ def generate_image():
             background_color='white',
             mask=mask_img
         ).generate(data)
+        plt.title(u"天下有情人终成眷属")
         plt.imshow(wordcloud.recolor(color_func=grey_color_func, random_state=3),
                    interpolation="bilinear")
         plt.axis('off')
-        plt.savefig('./heart2.jpg', dpi=1600)
+        plt.savefig('./heart3.jpg', dpi=1600)
 
 
 if __name__ == '__main__':
