@@ -52,7 +52,7 @@ def fetch_data(uid=None, container_id=None):
         for card in cards:
             # 每条微博的正文内容
             if card.get("card_type") == 9:
-                text = card.get("mblog").get("text")
+                text = card.get("mblog").get("text.txt")
                 text = clean_html(text)
                 blogs.append(text)
         page += 1

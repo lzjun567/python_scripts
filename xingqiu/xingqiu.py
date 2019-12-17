@@ -33,7 +33,7 @@ def str_to_dict(s, join_symbol="\n", split_symbol=":"):
 
 # 直接从浏览器里面拷贝过来的，请替换成你自己的浏览器中的内容
 headers = """
-Accept: application/json, text/plain, */*
+Accept: application/json, text.txt/plain, */*
 Accept-Encoding: gzip, deflate, br
 Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
 Authorization: 8EAE71AC-081C-FE82-BE8C-954696
@@ -56,7 +56,7 @@ def crawl(url):
     if len(topics) <= 1:
         return
     for i in topics:
-        print(i.get("talk").get("text")[:10])
+        print(i.get("talk").get("text.txt")[:10])
         db.topics.insert_one(i)
     else:
         last_time = i.get("create_time")

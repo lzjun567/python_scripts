@@ -15,7 +15,7 @@ concurrency = 10
 
 headers = {
     'Connection': 'Keep-Alive',
-    'Accept': 'text/html, application/xhtml+xml, */*',
+    'Accept': 'text.txt/html, application/xhtml+xml, */*',
     'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
     "HOST": "api.leancloud.cn",
