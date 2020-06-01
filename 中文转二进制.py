@@ -1,9 +1,23 @@
+content = ""
+
+
+def encode(text):
+    encode_content = []
+    encode_content.append(format(ord(i), 'b'))
+    print(" ".join(encode_content))
+
+
 def decode(text):
     content = text.split(" ")
     decode_content = []
     for i in content:
         decode_content.append(chr(int(i, 2)))
     print("".join(decode_content))
+
+
+if __name__ == '__main__':
+    text = "把那串01的文本粘贴在这里"
+    decode(text)
 
 
 if __name__ == '__main__':

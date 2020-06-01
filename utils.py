@@ -54,3 +54,15 @@ def cookie(s):
     for key, morsel in cookie.items():
         cookies[key] = morsel.value
     return cookie
+
+
+def format_duration(duration):
+    """
+    格式化时长
+    :param duration 毫秒
+    """
+
+    total_seconds = int(duration / 1000)
+    minute = total_seconds // 60
+    seconds = total_seconds % 60
+    return f'{minute:02}:{seconds:02}'
