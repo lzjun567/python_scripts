@@ -9,7 +9,7 @@ from . import utils
 
 作者：刘志军
 公众号：Python之禅
-任何问题可以加我微信：go2071  进行交流，备注“github”
+任何问题可以加我微信：lzjun567  进行交流，备注“github”
 
 """
 
