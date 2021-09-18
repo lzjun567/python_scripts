@@ -9,13 +9,13 @@ pygame.init()
 screen = pygame.display.set_mode(size)
 color = (255, 255, 255)
 screen.fill(color)
-pygame.display.flip()
+pygame.display.update()
 
 dino = pygame.image.load("images/d1.png")
 
 dino_rect = Rect(50, 100, 0, 0)
 
-pygame.display.flip()
+pygame.display.update()
 done = 0
 dino_rect = Rect(50, 100, 0, 0)
 
@@ -32,6 +32,6 @@ while not done:
         dino_rect = dino_rect.move([10, 0])  # 每次往前移动10
         screen.fill(color)  # 一定要重新填充背景色，否则移动时会留下上次的影子
         screen.blit(dino, dino_rect)
-        pygame.display.flip()
+        pygame.display.update()
 
 pygame.quit()

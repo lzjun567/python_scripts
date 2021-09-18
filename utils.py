@@ -6,7 +6,7 @@ from imageio import imread
 from wordcloud import WordCloud
 import jieba.analyse
 
-
+print(__file__)
 def word_segment(text):
     # 分词处理
     jieba.analyse.set_stop_words("./stopwords.txt")
