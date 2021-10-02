@@ -22,44 +22,43 @@ url = f"https://www.googleapis.com/youtube/v3/commentThreads?" \
       f"maxResults=100"  # 分页参数
 
 proxies = {
-	'http': 'socks5://127.0.0.1:1080',
-	'https': 'socks5://127.0.0.1:1080',
+    'http': 'socks5://127.0.0.1:1080',
+    'https': 'socks5://127.0.0.1:1080',
 }
 
 
 def spider(next_page_token):
-	if next_page_token:
-		params = {"pageToken": next_page_token}
-	else:
-		params = None
-	res = requests.get(url, proxies=proxies, params=params)
-	data = res.json()
-	import pprint
-	next_page_token = data.get("nextPageToken")
+    if next_page_token:
+        params = {"pageToken": next_page_token}
+    else:
+        params = None
+    res = requests.get(url, proxies=proxies, params=params)
+    data = res.json()
+    import pprint
+    next_page_token = data.get("nextPageToken")
 
-	items = data.get("items")
-	for item in items:
+    items = data.get("items")
+    for item in items:
+        comment = item.get("snippet").get("topLevelComment").get("snippet").get("textDisplay")
+        print(comment)
+    return next_page_token
 
-		comment = item.get("snippet").get("topLevelComment").get("snippet").get("textDisplay")
-		print(comment)
-	return next_page_token
 
 def run():
-	next_page_token = spider(None)
+    next_page_token = spider(None)
 
-	while next_page_token:
-		try:
-			print(next_page_token)
-			next_page_token = spider(next_page_token)
-			import time
-			time.sleep(1)
-		except Exception as e:
-			# 请求超时重试
-			import traceback
-			print(next_page_token)
-			print(traceback.format_exc())
-
+    while next_page_token:
+        try:
+            print(next_page_token)
+            next_page_token = spider(next_page_token)
+            import time
+            time.sleep(1)
+        except Exception as e:
+            # 请求超时重试
+            import traceback
+            print(next_page_token)
+            print(traceback.format_exc())
 
 
 if __name__ == '__main__':
-	run()
+    run()
