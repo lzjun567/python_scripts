@@ -1,6 +1,6 @@
 jieba==0.38
 matplotlib==2.0.2
-numpy==1.13.1
+numpy==1.21.0
 pyparsing==2.2.0
 requests==2.18.4
 scipy==0.19.1
